@@ -192,6 +192,8 @@ void Run()
 		topmost.ViewportFlagsOverrideSet = ImGuiViewportFlags_TopMost;
 		ImGui::SetNextWindowClass(&topmost);
 
+		ImGui::Begin("BoosState");
+
 		auto NpcId = SafeReadMemory(ResolvePointerChain(g_raxValue, {0x28, 0x124}), 4);
 		auto NpcHealth = SafeReadMemory(ResolvePointerChain(g_raxValue, {0x190, 0x0, 0x138}), 4);
 		auto NpcMaxHealth = SafeReadMemory(ResolvePointerChain(g_raxValue, {0x190, 0x0, 0x13C}), 4);
@@ -201,6 +203,8 @@ void Run()
 		ImGui::Text(("NpcHealth:    " + std::to_string(NpcHealth)).c_str());
 		ImGui::Text(("NpcMaxHealth: " + std::to_string(NpcMaxHealth)).c_str());
 		ImGui::Text(("NpcAnimation: " + std::to_string(NpcAnimation)).c_str());
+
+		ImGui::End();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
