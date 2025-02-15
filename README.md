@@ -27,3 +27,5 @@
 ## 使用的第三方库
 
 ImGui, GLEW, GLFW, MinHook
+
+关于[第三方库开源协议许可](./TrdLicense/README.md)详见链接内目录，它位于TrdLicense文件夹内

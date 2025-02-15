@@ -83,8 +83,6 @@ void InitStyle(ImGuiIO &io)
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 	io.ConfigFlags |= ImGuiCol_DockingEmptyBg;
 
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;  // Enable Gamepad Controls
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;	  // Enable Docking
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;	  // Enable Multi-Viewport / Platform Windows
 	io.ConfigViewportsNoAutoMerge = true;
@@ -192,19 +190,23 @@ void Run()
 		topmost.ViewportFlagsOverrideSet = ImGuiViewportFlags_TopMost;
 		ImGui::SetNextWindowClass(&topmost);
 
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4{0, 0, 0, 0.5f});
 		ImGui::Begin("BoosState");
 
 		auto NpcId = SafeReadMemory(ResolvePointerChain(g_raxValue, {0x28, 0x124}), 4);
 		auto NpcHealth = SafeReadMemory(ResolvePointerChain(g_raxValue, {0x190, 0x0, 0x138}), 4);
 		auto NpcMaxHealth = SafeReadMemory(ResolvePointerChain(g_raxValue, {0x190, 0x0, 0x13C}), 4);
+		auto NpcToughness = SafeReadFloatMemory(ResolvePointerChain(g_raxValue, {0x190, 0x40, 0x10}));
 		auto NpcAnimation = SafeReadMemory(ResolvePointerChain(g_raxValue, {0x190, 0x18, 0x40}), 4);
 
 		ImGui::Text(("NpcId:        " + std::to_string(NpcId)).c_str());
 		ImGui::Text(("NpcHealth:    " + std::to_string(NpcHealth)).c_str());
 		ImGui::Text(("NpcMaxHealth: " + std::to_string(NpcMaxHealth)).c_str());
+		ImGui::Text(("NpcToughness: " + std::to_string(NpcToughness)).c_str());
 		ImGui::Text(("NpcAnimation: " + std::to_string(NpcAnimation)).c_str());
 
 		ImGui::End();
+		ImGui::PopStyleColor();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -255,7 +257,7 @@ bool WINAPI DllMain(HINSTANCE dll_instance, unsigned int fdw_reason, void *lpv_r
 			return FALSE;
 		}
 
-		// Run ImGui
+		// 运行ImGui
 		mod_thread = std::thread(&Run);
 	}
 	else if (fdw_reason == DLL_PROCESS_DETACH && lpv_reserved != nullptr)
