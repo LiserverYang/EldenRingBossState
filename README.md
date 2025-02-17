@@ -1,4 +1,4 @@
-# EldenRingBoosState
+# EldenRingBossState
 
 这是一个基于modengine2的艾尔登法环mod，用于读取锁定的敌人信息，并显示在ImGui窗口上，灵感和实现方法启发于Hexinton团队制作，SilverCelty汉化的法环ct表，在此感谢！
 
@@ -8,15 +8,15 @@
 
 下载最新的Release，解压并将解压出来的所有文件及文件夹放到法环根目录，修改config_eldenring.toml，具体修改方式如下
 
-将第14行（可能有变动）的external_dlls添加一项`"BoosState\\BoosState.dll"`。
+将第14行（可能有变动）的external_dlls添加一项`"BossState\\BossState.dll"`。
 
 例如，如果原来第14行为`external_dlls = ["A.dll", "B\\B.dll", ...]`
 
-则修改后为：`external_dlls = ["A.dll", "B\\B.dll", ..., "BoosState\\BoosState.dll"]`
+则修改后为：`external_dlls = ["A.dll", "B\\B.dll", ..., "BossState\\BossState.dll"]`
 
 如果原来为`external_dlls = []`
 
-则修改后为：`external_dlls = ["BoosState\\BoosState.dll"]`
+则修改后为：`external_dlls = ["BossState\\BossState.dll"]`
 
 随后启动`launchmod_eldenring.bat`，如果看到出现了一个新的窗口，则代表成功。
 
@@ -28,4 +28,4 @@
 
 ImGui, GLEW, GLFW, MinHook
 
-关于[第三方库开源协议许可](./TrdLicense/README.md)详见链接内目录，它位于TrdLicense文件夹内
+关于[第三方库开源协议许可](./TrdLicense/)详见链接内目录，位于TrdLicense文件夹内

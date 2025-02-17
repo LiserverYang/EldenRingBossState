@@ -68,7 +68,7 @@ bool shouldExit = false;
 
 void InitStyle(ImGuiIO &io)
 {
-	io.Fonts->AddFontFromFileTTF("./BoosState/SourceCodePro-Regular.ttf", 18, NULL, io.Fonts->GetGlyphRangesChineseFull());
+	io.Fonts->AddFontFromFileTTF("./BossState/SourceCodePro-Regular.ttf", 18, NULL, io.Fonts->GetGlyphRangesChineseFull());
 
 	ImGuiStyle &style = ImGui::GetStyle();
 
@@ -83,8 +83,6 @@ void InitStyle(ImGuiIO &io)
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 	io.ConfigFlags |= ImGuiCol_DockingEmptyBg;
 
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;	  // Enable Docking
-	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;	  // Enable Multi-Viewport / Platform Windows
 	io.ConfigViewportsNoAutoMerge = true;
 }
 
@@ -190,8 +188,7 @@ void Run()
 		topmost.ViewportFlagsOverrideSet = ImGuiViewportFlags_TopMost;
 		ImGui::SetNextWindowClass(&topmost);
 
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4{0, 0, 0, 0.5f});
-		ImGui::Begin("BoosState");
+		ImGui::Begin("BossState", nullptr, ImGuiWindowFlags_NoBackground);
 
 		auto NpcId = SafeReadMemory(ResolvePointerChain(g_raxValue, {0x28, 0x124}), 4);
 		auto NpcHealth = SafeReadMemory(ResolvePointerChain(g_raxValue, {0x190, 0x0, 0x138}), 4);
@@ -206,7 +203,6 @@ void Run()
 		ImGui::Text(("NpcAnimation: " + std::to_string(NpcAnimation)).c_str());
 
 		ImGui::End();
-		ImGui::PopStyleColor();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
